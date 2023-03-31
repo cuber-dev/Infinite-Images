@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Images</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font awesome -->
+    <script defer src="https://kit.fontawesome.com/a2fa536777.js" crossorigin="anonymous"></script>
+    <!-- Google-Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <header>
+        <form id="search-form" action="">
+            <h1 id="heading"><label for="photo-search-input">Infinite-Images</label></h1>
+            <label class="header-para" for="photo-search-input">Search Images with Infinite-Images</label>
+            <div class="input-container">
+                <!-- <img src="" id="logo" alt=""> -->
+                <input type="text" name="photos" placeholder="Find what you want?" id="photo-search-input">
+                <button id="submit" type="submit"><i class="fas fa-search icon"></i></button>
+            </div>
+        </form>
+    </header>
+    
+    <main>
+        <div class="whole-img-container">
+            <div class="column-div">
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/4500/4650" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/500/450" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/1500/1250" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/500/450" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+            </div>
+            <div class="column-div">
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/800/1250" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/500/300" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/4300/4350" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/500/450" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+            </div>
+            <div class="column-div">
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/3400/3450" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div><div class="image-container">
+                    <img id="image" src="https://unsplash.it/500/450" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div><div class="image-container">
+                    <img id="image" src="https://unsplash.it/2300/2350" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img id="image" src="https://unsplash.it/500/450" alt="">
+                    <div class="pop-up-window-container">
+                        <button class="pop-up-window-btn">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="load-more-container">
+            <button id="load-more">Load-more <i class="fas fa-truck-loading  icon"></i></button>
+        </div>
+
+        <div class="window-outer-container">
+            <div class="window-inner-container">
+
+                <div class="window-header-container">
+                    <button id="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                    <h2 class="header">Infinite-Images</h2>
+                    <span></span>
+                </div>
+
+                <div class="window-donwload-container">
+                    <img src="https://unsplash.it/500/450" id="window-image" alt="">
+                    <a href="#" download id="window-download-btn">Download <i class="fa fa-download icon" aria-hidden="true"></i></a>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+    
+    <footer>
+
+    </footer>
+    <script defer src="script.js"></script>
+
+</body>
+</html>
