@@ -80,7 +80,8 @@ function addImagesElements(data){
   columnDivs.forEach(column => {
     column.innerHTML = '';
   });
-
+  loadMoreContainer.classList.add('disabled');
+  
   for(let i = 0; i < data.results.length; i++){
     const column = columnDivs[i % 3]; // select the correct column based on i
 
@@ -154,7 +155,7 @@ function handleWindow(image,imageTitle){
   
   fetchImage();
   
-  if(!windowDownloadBtn.href.includes('htm')){
+  if(windowDownloadBtn.href !== 'index.htm'){
     windowDownloadBtn.classList.remove('disabled');
   }
 }
