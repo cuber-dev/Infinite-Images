@@ -136,11 +136,11 @@ let holdValue = '';
 form.addEventListener('submit',async (e) => {
   e.preventDefault();
   
-  if(searchInput.value === holdValue){
+  if(searchInput.value.trim() === holdValue){
     return; 
   }else{
-    await debounceRequest(searchInput.value,1);
-    holdValue = searchInput.value;
+    await debounceRequest(searchInput.value.trim(),1);
+    holdValue = searchInput.value.trim();
   }
 });
 
