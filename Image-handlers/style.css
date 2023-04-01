@@ -1,0 +1,93 @@
+body{
+    padding:0;
+    margin:0;
+    font-family: 'Dosis', sans-serif;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root{
+  --theme-1 : #000000;
+  --theme-2 : #4edf6d;
+  --theme-3 : #56cf70;
+  --white : #fff;
+  --black : #000;
+  --grey  : #C6C6C7;
+}
+
+header{
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+header .heading{
+  color: var(--theme-2);
+}
+
+#back-btn{
+  position: fixed;
+  top: 1rem;
+  left: .5rem;
+  background: transparent;
+  border: 1px solid var(--grey);
+  border-radius: 50%;
+  padding : .5rem .7rem;
+  opacity: 0.7;
+  color: white;
+  cursor: pointer;
+}
+#back-btn:hover{
+  background: var(--grey);
+}
+
+
+
+
+
+
+main .picked-image-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+main .picked-image-container .image-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  width:600px;
+}
+
+main .picked-image-container .image-container #picked-image-title{
+  background: var(--grey);
+  color : var(--white);
+  padding: 1rem;
+  border-radius: .5rem;
+  line-height: 1rem;
+  font-weight: bold;
+}
+main .picked-image-container .image-container #picked-image{
+  display: block;
+  width: 100%;
+}
+main .picked-image-container .download-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .picked-image-container .download-container #download-btn{
+  text-decoration: none;
+  color: white;
+  background: var(--theme-3);
+  font-weight: bold;
+  padding: 1rem 3rem;
+  border-radius: .2rem;
+}

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Images</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/Image-handlers/style.css">
     <!-- Font awesome -->
     <script defer src="https://kit.fontawesome.com/a2fa536777.js" crossorigin="anonymous"></script>
     <!-- Google-Fonts -->
@@ -16,32 +16,40 @@
 <body>
   <header>
     <button id="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-    <h2 class="header">Infinite-Images</h2>
+    <h1 class="heading">Infinite-Images</h1>
   </header>
   
   <main>
-      
-    <div class="main-container">
-
-      <div class="picked-image-container">
+    
+    <section class="picked-image-container">
           
-        <div class="image-container">
-          <p id="picked-image-title">Title of the image</p>
-          <img src="https://unsplash.it/300/300" id="picked-image" alt="">
-        </div>
-
-        <div class="donwload-container">
-          <a href="" download id="download-btn" class="disabled">Download <i class="fa fa-download icon" aria-hidden="true"></i></a>
-        </div>
-          
+      <div class="image-container">
+        <p id="picked-image-title">Title of the image</p>
+        <img src="https://unsplash.it/3000/3000" id="picked-image" alt="">
       </div>
-        
-    </div>
 
+      <div class="download-container">
+        <a href="" download id="download-btn" class="disabled">Download Image <i class="fa fa-download icon" aria-hidden="true"></i></a>
+      </div>
+          
+    </section>
+    
+    <p class="related-para">Related Images</p>
+    
+    <section class="related-images-grid">
+      <div class="column-div">
+        <div class="image-container loading">
+          <img id="image" src="https://unsplash.it/300/350" alt="">
+          <div class="self-search-container">
+            <button class="self-search-btn">Download</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
   
   <footer></footer>
   
-  <script defer src="handler.js"></script>
+  <script defer src="main.js"></script>
 </body>
 </html>
