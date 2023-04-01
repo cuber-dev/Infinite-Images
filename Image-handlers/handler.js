@@ -1,3 +1,4 @@
+/*
 const pickedImage = document.querySelector('#picked-image');
 const pickedImgTitle = document.querySelector('#picked-image-title');
 
@@ -7,4 +8,5 @@ const title = urlParams.get('title');
 
 pickedImage.src = image;
 pickedImgTitle.innerText = title;
+*/
 

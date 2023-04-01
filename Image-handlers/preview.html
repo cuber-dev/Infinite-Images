@@ -14,30 +14,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header></header>
+  <header>
+    <button id="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+    <h2 class="header">Infinite-Images</h2>
+  </header>
   
   <main>
-      <div class="main-container disabled">
-        
-        <div class="picked-image-container">
-          <div class="picked-header-container">
-              <button id="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-              <h2 class="img-header">Infinite-Images</h2>
-              <span></span>
-          </div>
+      
+    <div class="main-container">
 
-          <div class="picked-donwload-container">
-              <p id="picked-image-title"></p>
-              <img src="" id="picked-image" alt="">
-              <a href="" download id="picked-download-btn" class="disabled">Download <i class="fa fa-download icon" aria-hidden="true"></i></a>
-          </div>
-        </div>
-        
-        <div class="grid-image-container">
+      <div class="picked-image-container">
           
+        <div class="image-container">
+          <p id="picked-image-title">Title of the image</p>
+          <img src="https://unsplash.it/300/300" id="picked-image" alt="">
         </div>
-        
+
+        <div class="donwload-container">
+          <a href="" download id="download-btn" class="disabled">Download <i class="fa fa-download icon" aria-hidden="true"></i></a>
+        </div>
+          
       </div>
+        
+    </div>
 
   </main>
   
