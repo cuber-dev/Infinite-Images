@@ -129,13 +129,7 @@ main .whole-img-container .image-container:hover .pop-up-window-container .pop-u
 }
 /* Animation */
 main .whole-img-container .image-container.loading{
-  background-image: linear-gradient(
-                    90deg,
-                    white,
-                    #B9D3B5 20%,
-                    white
-  );      
-  background-size: 300%;
+ background: #CFCFCF;
 }
 
 main .load-more-container{
