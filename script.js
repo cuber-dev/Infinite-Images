@@ -56,27 +56,28 @@ changeWord();
 
 
 /* ================== Debounce ======================*/
-function debounceTimeout(makeRequest ,delay = 1000){
+function debounceTimeout(getImages ,delay = 1000){
   let timeOut;
   return async (photoName) => {
     clearTimeout(timeOut);
     timeOut = setTimeout(async () => {
-      await makeRequest(photoName);
+      await getImages(photoName);
     }, delay);
   }
 }
-const debounceRequest = debounceTimeout(makeRequest,1500);
+const debounceRequest = debounceTimeout(getImages,1500);
 
 /* Making api request */
-async function makeRequest(photoName) {
+async function getImages(photoName) {
   const url = 'https://api.unsplash.com/search/photos?query='+ photoName +'&per_page=30&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo';
   const responose = await fetch(url);
   const data = await responose.json();
-  addImagesElements(data);
+  addImageElements(data);
 }
 
 
-function addImagesElements(data){
+/* Add image elements to each column */
+function addImageElements(data){
   columnDivs.forEach(column => {
     column.innerHTML = '';
   });
@@ -147,26 +148,23 @@ function handleWindow(image,imageTitle){
   WindowImageTitle.innerText = imageTitle.innerText;
   windowImage.src = image.src;
   
-  if(!windowDownloadBtn.classList.contains('disabled')){
-    windowDownloadBtn.classList.add('disabled');
-  }  
+  windowDownloadBtn.classList.add('disabled');
 
   windowDownloadBtn.href = '';
   
-  fetchImage();
+  fetchImage(windowImage.src);
   
   if(windowDownloadBtn.href !== 'index.htm'){
     windowDownloadBtn.classList.remove('disabled');
   }
 }
 
-async function fetchImage(){
-  const response = await fetch(windowImage.src);
+async function fetchImage(image){
+  const response = await fetch(image);
   const blob = await response.blob();
   
   const imageDownloadUrl = URL.createObjectURL(blob);
   windowDownloadBtn.href = imageDownloadUrl;
-  console.log('download started');
 }
 
 
