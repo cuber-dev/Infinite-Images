@@ -71,7 +71,8 @@ main .picked-image-container .image-container #picked-image-title{
   color : var(--white);
   padding: 1rem;
   border-radius: .5rem;
-  line-height: 1rem;
+  line-height: 1.5rem;
+  font-size: 1.1rem;
   font-weight: bold;
 }
 main .picked-image-container .image-container #picked-image{
@@ -213,7 +214,10 @@ main .load-more-container.disabled{
   header #heading{
     font-size: 2.1rem;
   }
-
+  main .picked-image-container .image-container{
+    width : 100%;
+    padding: .2rem;
+  }
   main .related-images-grid{
      grid-template-columns: repeat(1,minmax(0,1fr));
      padding: .5rem;
