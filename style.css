@@ -128,7 +128,7 @@ main .whole-img-container .image-container:hover .pop-up-window-container .pop-u
 
 
 main .load-more-container{
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   width: 100%;
