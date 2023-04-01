@@ -146,10 +146,20 @@ function handleWindow(image,imageTitle){
   WindowImageTitle.innerText = imageTitle.innerText;
   windowImage.src = image.src;
   
-  downloadImage();
+  if(!windowDownloadBtn.classList.contains('disabled')){
+    windowDownloadBtn.classList.add('disabled');
+  }  
+
+  windowDownloadBtn.href = '';
+  
+  fetchImage();
+  
+  if(!windowDownloadBtn.href.includes('htm')){
+    windowDownloadBtn.classList.remove('disabled');
+  }
 }
 
-async function downloadImage(){
+async function fetchImage(){
   const response = await fetch(windowImage.src);
   const blob = await response.blob();
   

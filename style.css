@@ -239,7 +239,10 @@ main .window-outer-container .window-inner-container .window-donwload-container 
 main .window-outer-container .window-inner-container .window-donwload-container #window-download-btn:hover{
   opacity: 0.7;
 }
-
+main .window-outer-container .window-inner-container .window-donwload-container #window-download-btn.disabled{
+  pointer-events: none;
+  opacity: 0.7;
+}
 
 
 /* Responsive */
