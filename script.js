@@ -12,6 +12,7 @@ const loadMoreContainer = document.querySelector('.load-more-container');
 const loadMoreBtn = document.querySelector('.load-more');
 
 /* window elements */
+/*
 const windowOuterContainer = document.querySelector('.window-outer-container');
 const windowInnerContainer = document.querySelector('.window-inner-container');
 const windowHeaderContainer = document.querySelector('.window-header-container');
@@ -20,11 +21,11 @@ const windowDownloadContainer = document.querySelector('.window-donwload-contain
 const WindowImageTitle = document.querySelector('#window-image-title');
 const windowImage = document.querySelector('#window-image');
 const windowDownloadBtn = document.querySelector('#window-download-btn');
-
+*/
 
 
 /* ================= Placeholders =================================*/
-let strings = 'Picture-X Artwork-#1 Sample-Image Demo-Picture AI-Art';
+let strings = 'cute-cats Artwork-#1 Demo-Picture AI-Art Galaxy-images Wonderfull-Nature Animals-and-Birds Fashion-pictures HD-wallpapers 3D-art';
 let words = strings.split(' ');
 let currentStringIndex = 0;
 let currentCharacterIndex = 0;
@@ -40,8 +41,8 @@ function typeNextCharacter() {
   }else{
     clearTimeout(timeoutId);
     currentCharacterIndex = 0;
-    currentStringIndex = (currentStringIndex + 1) < words.length ? currentStringIndex + 1 : 0;
-    setTimeout(changeWord,1000 * 5);
+    currentStringIndex = Math.floor(Math.random() * words.length);
+    setTimeout(changeWord,1000 * 10);
   }
 }
 function changeWord(){
@@ -58,18 +59,18 @@ changeWord();
 /* ================== Debounce ======================*/
 function debounceTimeout(getImages ,delay = 1000){
   let timeOut;
-  return async (photoName) => {
+  return async (photoName,limit) => {
     clearTimeout(timeOut);
     timeOut = setTimeout(async () => {
-      await getImages(photoName);
+      await getImages(photoName,limit);
     }, delay);
   }
 }
 const debounceRequest = debounceTimeout(getImages,1500);
 
 /* Making api request */
-async function getImages(photoName) {
-  const url = 'https://api.unsplash.com/search/photos?query='+ photoName +'&per_page=30&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo';
+async function getImages(photoName,limit = 30) {
+  const url = `https://api.unsplash.com/search/photos?query=${photoName}&per_page=${limit}&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo`;
   const responose = await fetch(url);
   const data = await responose.json();
   addImageElements(data);
@@ -112,8 +113,8 @@ function addImageElements(data){
     imageContainer.classList.add("image-container");
     imageTitle.classList.add("image-title");
     image.id = "image";
-    popUpWindowContainer.classList.add("pop-up-window-container");
-    popUpWindowBtn.classList.add("pop-up-window-btn");
+    popUpWindowContainer.classList.add("redirector-container");
+    popUpWindowBtn.classList.add("redirector-btn");
      
     // Appending elements to imageContainer
     popUpWindowContainer.append(popUpWindowBtn);
@@ -138,7 +139,7 @@ form.addEventListener('submit',async (e) => {
   if(searchInput.value === holdValue){
     return; 
   }else{
-    await debounceRequest(searchInput.value);
+    await debounceRequest(searchInput.value,1);
     holdValue = searchInput.value;
   }
 });
@@ -170,12 +171,17 @@ async function fetchImage(image){
 
 wholeImgContainer.addEventListener('click',(e) => {
   const children = e.target;
-  if(children.matches('.pop-up-window-btn')){
-    handleWindow(children.parentElement.previousElementSibling,children.parentElement.previousElementSibling.previousElementSibling);
+  if(children.matches('.redirector-btn')){
+    //handleWindow(children.parentElement.previousElementSibling,children.parentElement.previousElementSibling.previousElementSibling);
+    
+    let image = children.parentElement.previousElementSibling.src;
+    let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
+    window.location.href = '/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title);
+
   }
 });
+/*
 windowBackBtn.addEventListener('click',() => { 
   windowOuterContainer.classList.add('disabled');
-});
-
+});*/
 
