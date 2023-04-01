@@ -4,10 +4,26 @@ const searchInput = document.querySelector('#photo-search-input');
 const submitBtn = document.querySelector('#submit');
 
 /* Image elements */
+const wholeImgContainer = document.querySelector('.whole-img-container');
 const columnDivs = Array.from(document.querySelectorAll('.column-div'));
 
+/* load more elements */
+const loadMoreContainer = document.querySelector('.load-more-container');
+const loadMoreBtn = document.querySelector('.load-more');
 
-/* Placeholders */
+/* window elements */
+const windowOuterContainer = document.querySelector('.window-outer-container');
+const windowInnerContainer = document.querySelector('.window-inner-container');
+const windowHeaderContainer = document.querySelector('.window-header-container');
+const windowBackBtn = document.querySelector('#back-btn');
+const windowDownloadContainer = document.querySelector('.window-donwload-container');
+const WindowImageTitle = document.querySelector('#window-image-title');
+const windowImage = document.querySelector('#window-image');
+const windowDownloadBtn = document.querySelector('#window-download-btn');
+
+
+
+/* ================= Placeholders =================================*/
 let strings = 'Picture-X Artwork-#1 Sample-Image Demo-Picture AI-Art';
 let words = strings.split(' ');
 let currentStringIndex = 0;
@@ -39,7 +55,7 @@ changeWord();
 
 
 
-/* Debounce */
+/* ================== Debounce ======================*/
 function debounceTimeout(makeRequest ,delay = 1000){
   let timeOut;
   return async (photoName) => {
@@ -53,7 +69,7 @@ const debounceRequest = debounceTimeout(makeRequest,1500);
 
 /* Making api request */
 async function makeRequest(photoName) {
-  const url = 'https://api.unsplash.com/search/photos?query='+ photoName +'&per_page=30&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo';
+  const url = 'https://api.unsplash.com/search/photos?query='+ photoName +'&per_page=5&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo';
   const responose = await fetch(url);
   const data = await responose.json();
   addImagesElements(data);
@@ -61,7 +77,10 @@ async function makeRequest(photoName) {
 
 
 function addImagesElements(data){
-  //console.log(data);
+  columnDivs.forEach(column => {
+    column.innerHTML = '';
+  });
+
   for(let i = 0; i < data.results.length; i++){
     const column = columnDivs[i % 3]; // select the correct column based on i
 
@@ -76,7 +95,17 @@ function addImagesElements(data){
     imageTitle.innerText = data.results[i].alt_description;
     image.src = data.results[i].urls.full;
     popUpWindowBtn.innerText = "Download";
-     
+    
+    // Adding animation until the image loads
+    imageContainer.classList.add('loading');
+    
+    // Removing animation when loaded 
+    image.addEventListener('load',() => {
+      setTimeout(() => {
+        imageContainer.classList.remove('loading');
+      },1000);
+    });
+    
     // Adding classes and id
     imageContainer.classList.add("image-container");
     imageTitle.classList.add("image-title");
@@ -93,15 +122,50 @@ function addImagesElements(data){
      
     // Appending To each column 
     column.append(imageContainer);    
+    
   }
+  loadMoreContainer.classList.remove('disabled');
 }
 
+let holdValue = '';
 
 /* Listening for input or submit */
 form.addEventListener('submit',async (e) => {
   e.preventDefault();
-  await debounceRequest(searchInput.value);
-})
-searchInput.addEventListener('input',async () => {
-  await debounceRequest(searchInput.value);
+  
+  if(searchInput.value === holdValue){
+    return; 
+  }else{
+    await debounceRequest(searchInput.value);
+    holdValue = searchInput.value;
+  }
 });
+
+function handleWindow(image,imageTitle){
+  windowOuterContainer.classList.remove('disabled');
+  WindowImageTitle.innerText = imageTitle.innerText;
+  windowImage.src = image.src;
+  
+  downloadImage();
+}
+
+wholeImgContainer.addEventListener('click',(e) => {
+  const children = e.target;
+  if(children.matches('.pop-up-window-btn')){
+    handleWindow(children.parentElement.previousElementSibling,children.parentElement.previousElementSibling.previousElementSibling);
+  }
+});
+windowBackBtn.addEventListener('click',() => { 
+  windowOuterContainer.classList.add('disabled');
+});
+
+
+function downloadImage(){
+  const response = fetch(windowImage.src);
+  const blob = response.blob();
+  
+  const imageDownloadUrl = URL.createObjectURL(blob);
+  windowDownloadBtn.href = imageDownloadUrl;
+  windowBackBtn.download = 'image.jpg';
+  console.log('download started');
+}
