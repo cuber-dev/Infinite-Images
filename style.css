@@ -92,6 +92,9 @@ main .whole-img-container .image-container{
   position: relative;
   transition: all 300ms ease-in;
 }
+main .whole-img-container .image-container .image-title{
+  display : none;
+}
 main .whole-img-container .image-container #image{
   display: block;
   width: 100%;
