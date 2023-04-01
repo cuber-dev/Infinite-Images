@@ -173,7 +173,7 @@ main .window-outer-container{
   justify-content: center;
   align-items: center;
   background-color: rgba(0,0,0,0.20);
-  transition: all 300ms ease;
+  transition: all 500ms ease;
 }
 main .window-outer-container.disabled{
   opacity: 0;

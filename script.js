@@ -149,6 +149,16 @@ function handleWindow(image,imageTitle){
   downloadImage();
 }
 
+async function downloadImage(){
+  const response = await fetch(windowImage.src);
+  const blob = await response.blob();
+  
+  const imageDownloadUrl = URL.createObjectURL(blob);
+  windowDownloadBtn.href = imageDownloadUrl;
+  console.log('download started');
+}
+
+
 wholeImgContainer.addEventListener('click',(e) => {
   const children = e.target;
   if(children.matches('.pop-up-window-btn')){
@@ -160,12 +170,3 @@ windowBackBtn.addEventListener('click',() => {
 });
 
 
-function downloadImage(){
-  const response = fetch(windowImage.src);
-  const blob = response.blob();
-  
-  const imageDownloadUrl = URL.createObjectURL(blob);
-  windowDownloadBtn.href = imageDownloadUrl;
-  windowBackBtn.download = 'image.jpg';
-  console.log('download started');
-}
