@@ -132,11 +132,6 @@ main .whole-img-container.loading::after{
   border-bottom-style: dotted;
   animation: load 1s linear infinite;
 }
-@keyframes load{
-  to{
-    transform: translate(-50%,-50%)  rotate(1turn);
-  }
-}
 
 
 main .whole-img-container.loading *{
@@ -215,10 +210,35 @@ main .load-more-container #load-more{
 main .load-more-container #load-more:hover{
   opacity: 0.7;
 }
-main .load-more-container.disabled{
+main .load-more-container.disabled #load-more{
   display: none;
 }
 
+main .load-more-container.loading{
+  min-height: 30vh;
+  background: white;
+  position: relative;
+}
+
+main .load-more-container.loading::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 35px;
+  width: 35px;
+  border: 5px solid grey;
+  border-radius: 50%;
+  border-bottom-style: dotted;
+  animation: load 1s linear infinite;
+}
+
+@keyframes load{
+  to{
+    transform: translate(-50%,-50%)  rotate(1turn);
+  }
+}
 
 
 

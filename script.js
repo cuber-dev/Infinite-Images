@@ -117,7 +117,7 @@ function addImageElements(data){
 
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
-  },1000 * 5);
+  },1000 * 8);
 }
 
 async function handleFormSubmit(e){
@@ -159,4 +159,9 @@ wholeImgContainer.addEventListener('click',(e) => {handleImageClick(e)});
 
 loadMoreBtn.addEventListener('click',async () => {
   await getImages(globalImageName,10);
+  loadMoreContainer.classList.add('loading');
+
+  setTimeout(() => {
+    loadMoreContainer.classList.remove('loading');
+  },1000 * 8);
 });

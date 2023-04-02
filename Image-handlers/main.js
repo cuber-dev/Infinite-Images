@@ -18,6 +18,7 @@ const loadMoreBtn = document.querySelector('#load-more');
 /* Back button */
 const backBtn = document.querySelector('#back-btn');
 backBtn.addEventListener('click', () => {
+  backBtn.classList.add('clicked');
   setTimeout(() => {
     window.history.back();
   },300);
@@ -134,7 +135,7 @@ function addImageElements(data) {
   }
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
-  },1000 * 5);
+  },1000 * 8);hshhshdjd
 }
 
 
@@ -178,4 +179,9 @@ relatedImagesGrid.addEventListener('click',(e) => {
 
 loadMoreBtn.addEventListener('click',async () => {
   await getRelatedImages(globalImageName,15);
+  loadMoreContainer.classList.add('loading');
+  
+  setTimeout(() => {
+    loadMoreContainer.classList.remove('loading');
+  }, 1000 * 8);
 });
