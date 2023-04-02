@@ -19,7 +19,7 @@ const backBtn = document.querySelector('#back-btn');
 backBtn.addEventListener('click', () => {
   setTimeout(() => {
     window.history.back();
-  },500);
+  },300);
 });
 
 /* Go-to top button */
