@@ -122,7 +122,7 @@ function addImageElements(data){
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
     
-    lastChildObserver.observe(loadMoreContainer);
+    observer.observe(loadMoreContainer);
 
   },1000 * 3);
   
@@ -136,7 +136,7 @@ async function handleFormSubmit(e){
     return;
   } else {
   
-    lastChildObserver.observe(loadMoreContainer);
+    observer.observe(loadMoreContainer);
 
     wholeImgContainer.classList.add('loading');
   
@@ -190,7 +190,7 @@ async function addImageElementsByScroll() {
   }
 }
 
-const lastChildObserver = new IntersectionObserver(async entries => {
+const observer = new IntersectionObserver(async entries => {
   const lastChild = entries[0];
   
   if(!lastChild.isIntersecting) return;
