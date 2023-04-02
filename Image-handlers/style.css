@@ -91,7 +91,10 @@ main .picked-image-container .download-container #download-btn{
   padding: 1rem 3rem;
   border-radius: .2rem;
 }
-
+main .picked-image-container .download-container #download-btn.disabled{
+  pointer-events: none;
+  opacity: 0.7;
+}
 
 
 

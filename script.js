@@ -127,7 +127,9 @@ function addImageElements(data){
     column.append(imageContainer);    
     
   }
-  loadMoreContainer.classList.remove('disabled');
+  setTimeout(() => {
+    loadMoreContainer.classList.remove('disabled');
+  },1000 * 10);
 }
 
 let holdValue = '';
