@@ -135,7 +135,7 @@ function addImageElements(data) {
   }
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
-  },1000 * 8);hshhshdjd
+  },1000 * 8);
 }
 
 
