@@ -22,6 +22,8 @@ backBtn.addEventListener('click', () => {
   },500);
 });
 
+/* Go-to top button */
+const gotoTopBtn = document.querySelector('#goto-top-btn');
 
 /* URL extracter */
 function extractParams(){
@@ -151,6 +153,8 @@ function handleSelfClick(e){
     fetchImage(image);
   
     getRelatedImages(title);
+    
+    gotoTopBtn.click()
   }
 }
 
