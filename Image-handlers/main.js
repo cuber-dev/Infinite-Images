@@ -13,6 +13,7 @@ const selfSearchBtn = document.querySelector('.self-search-btn');
 
 /* Load more container */
 const loadMoreContainer = document.querySelector('.load-more-container');
+const loadMoreBtn = document.querySelector('#load-more');
 
 /* Back button */
 const backBtn = document.querySelector('#back-btn');
@@ -24,6 +25,16 @@ backBtn.addEventListener('click', () => {
 
 /* Go-to top button */
 const gotoTopBtn = document.querySelector('#goto-top-btn');
+
+
+
+// Global variables 
+let nextPage = 0;
+let globalImageName = '';
+
+
+
+
 
 /* URL extracter */
 function extractParams(){
@@ -61,12 +72,11 @@ async function fetchImage(image){
   }
 }
 
-
 // Related image fetcher 
-async function getRelatedImages(title, limit = 30) {
+async function getRelatedImages(title, limit) {
   loadMoreContainer.classList.add('disabled');
-
-  const url = `https://api.pexels.com/v1/search?query=${title}&per_page=${limit}`;
+  
+  const url = `https://api.pexels.com/v1/search?query=${title}&per_page=${limit}&page=${nextPage++}`;
   const response = await fetch(url, {
     headers: {
       Authorization: 'jhaRNPVlrpGVp8JO2GP3GBChuVMnOc6cL0W5ci780jSRjf35hKgEq2O3',
@@ -106,10 +116,10 @@ function addImageElements(data) {
       }, 1000);
     });
 
-    // Adding classes and id
+    // Adding classes 
     relatedImageContainer.classList.add("related-image-container");
     relatedImageTitle.classList.add("related-image-title");
-    relatedImage.id = "related-image";
+    relatedImage.classList.add("related-image");
     selfSearchContainer.classList.add("self-search-container");
     selfSearchBtn.classList.add("self-search-btn");
 
@@ -124,7 +134,7 @@ function addImageElements(data) {
   }
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
-  },1000 * 10);
+  },1000 * 5);
 }
 
 
@@ -132,9 +142,10 @@ async function handleWindowLoad(){
   const { image , title , searchParam } = extractParams();
   fetchImage(image);
   
-  getRelatedImages(title);
+  getRelatedImages(title,20);
+  globalImageName = title;
 }
-
+window.addEventListener('load',handleWindowLoad);
 
 
 function handleSelfClick(e){
@@ -154,18 +165,17 @@ function handleSelfClick(e){
     },500);
 
     fetchImage(image);
-  
-    getRelatedImages(title);
-    
+    getRelatedImages(title,20);
+    globalImageName = title;
+
     gotoTopBtn.click()
   }
 }
-
-
-
-window.addEventListener('load',handleWindowLoad);
-
 relatedImagesGrid.addEventListener('click',(e) => {
   handleSelfClick(e);
 });
 
+
+loadMoreBtn.addEventListener('click',async () => {
+  await getRelatedImages(globalImageName,15);
+});

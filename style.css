@@ -155,7 +155,8 @@ main .whole-img-container .image-container{
 main .whole-img-container .image-container .image-title{
   display : none;
 }
-main .whole-img-container .image-container #image{
+
+main .whole-img-container .image-container .image{
   display: block;
   width: 100%;
   height: 100%;

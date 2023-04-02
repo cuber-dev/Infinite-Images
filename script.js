@@ -9,8 +9,12 @@ const columnDivs = Array.from(document.querySelectorAll('.column-div'));
 
 /* load more elements */
 const loadMoreContainer = document.querySelector('.load-more-container');
-const loadMoreBtn = document.querySelector('.load-more');
+const loadMoreBtn = document.querySelector('#load-more');
 
+// Global variables 
+let nextPage = 0;
+let holdValue = '';
+let globalImageName = '';
 
 /* ================= Placeholders =================================*/
 let strings = 'cute-cats Artwork-#1 Demo-Picture AI-Art Galaxy-images Wonderfull-Nature Animals-and-Birds Fashion-pictures HD-wallpapers 3D-art';
@@ -47,26 +51,23 @@ changeWord();
 
 /* Making api request */
 async function getImages(photoName, limit = 30) {
-  wholeImgContainer.classList.add('loading');
 
-  const url = `https://api.pexels.com/v1/search?query=${photoName}&per_page=${limit}`;
+  const url = `https://api.pexels.com/v1/search?query=${photoName}&per_page=${limit}&page=${nextPage++}`;
   const response = await fetch(url, {
     headers: {
       Authorization: 'jhaRNPVlrpGVp8JO2GP3GBChuVMnOc6cL0W5ci780jSRjf35hKgEq2O3',
     },
   });
   const data = await response.json();
+  
+  loadMoreContainer.classList.add('disabled');
+  
   addImageElements(data);
 }
 
 
 /* Add image elements to each column */
 function addImageElements(data){
-  
-  columnDivs.forEach(column => {
-    column.innerHTML = '';
-  });
-  loadMoreContainer.classList.add('disabled');
   
   for(let i = 0; i < data.photos.length; i++){
     const column = columnDivs[i % 3]; // select the correct column based on i
@@ -93,10 +94,10 @@ function addImageElements(data){
       },1000);
     });
     
-    // Adding classes and id
+    // Adding classes
     imageContainer.classList.add("image-container");
     imageTitle.classList.add("image-title");
-    image.id = "image";
+    image.classList.add('image');
     popUpWindowContainer.classList.add("redirector-container");
     popUpWindowBtn.classList.add("redirector-btn");
      
@@ -116,34 +117,46 @@ function addImageElements(data){
 
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
-  },1000 * 10);
+  },1000 * 5);
 }
 
-let holdValue = '';
-
-/* Listening for input or submit */
-form.addEventListener('submit',async (e) => {
+async function handleFormSubmit(e){
   e.preventDefault();
   
-  if(searchInput.value.trim() === holdValue){
-    return; 
-  }else{
-    await getImages(searchInput.value.trim());
+  if (searchInput.value.trim() === holdValue) {
+    return;
+  } else {
+  
+    wholeImgContainer.classList.add('loading');
+  
+    columnDivs.forEach(column => {
+      column.innerHTML = '';
+    });
+  
+    await getImages(searchInput.value.trim(), 30);
+    
     holdValue = searchInput.value.trim();
-    
+    globalImageName = holdValue;
   }
-});
+}
+form.addEventListener('submit',async (e) => {handleFormSubmit(e)});
 
 
-wholeImgContainer.addEventListener('click',(e) => {
+async function handleImageClick(e){
   const children = e.target;
-  if(children.matches('.redirector-btn')){
-    
+  if (children.matches('.redirector-btn')) {
+  
     let image = children.parentElement.previousElementSibling.src;
     let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
-   // window.location.href = 'https://cuber-dev.github.io/Infinite-Images/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
-   
+    // window.location.href = 'https://cuber-dev.github.io/Infinite-Images/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
+  
     window.location.href = '/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
-
+  
   }
+}
+wholeImgContainer.addEventListener('click',(e) => {handleImageClick(e)});
+
+
+loadMoreBtn.addEventListener('click',async () => {
+  await getImages(globalImageName,10);
 });

@@ -216,7 +216,7 @@ main .related-images-grid .related-image-container{
 main .related-images-grid .related-image-container .related-image-title{
   display : none;
 }
-main .related-images-grid .related-image-container #related-image{
+main .related-images-grid .related-image-container .related-image{
   display: block;
   width: 100%;
   height: 100%;
