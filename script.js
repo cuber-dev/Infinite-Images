@@ -11,18 +11,6 @@ const columnDivs = Array.from(document.querySelectorAll('.column-div'));
 const loadMoreContainer = document.querySelector('.load-more-container');
 const loadMoreBtn = document.querySelector('.load-more');
 
-/* window elements */
-/*
-const windowOuterContainer = document.querySelector('.window-outer-container');
-const windowInnerContainer = document.querySelector('.window-inner-container');
-const windowHeaderContainer = document.querySelector('.window-header-container');
-const windowBackBtn = document.querySelector('#back-btn');
-const windowDownloadContainer = document.querySelector('.window-donwload-container');
-const WindowImageTitle = document.querySelector('#window-image-title');
-const windowImage = document.querySelector('#window-image');
-const windowDownloadBtn = document.querySelector('#window-download-btn');
-*/
-
 
 /* ================= Placeholders =================================*/
 let strings = 'cute-cats Artwork-#1 Demo-Picture AI-Art Galaxy-images Wonderfull-Nature Animals-and-Birds Fashion-pictures HD-wallpapers 3D-art';
@@ -146,30 +134,6 @@ form.addEventListener('submit',async (e) => {
     holdValue = searchInput.value.trim();
   }
 });
-/*
-function handleWindow(image,imageTitle){
-  windowOuterContainer.classList.remove('disabled');
-  WindowImageTitle.innerText = imageTitle.innerText;
-  windowImage.src = image.src;
-  
-  windowDownloadBtn.classList.add('disabled');
-
-  windowDownloadBtn.href = '';
-  
-  fetchImage(windowImage.src);
-  
-  if(windowDownloadBtn.href !== 'index.htm'){
-    windowDownloadBtn.classList.remove('disabled');
-  }
-}
-
-async function fetchImage(image){
-  const response = await fetch(image);
-  const blob = await response.blob();
-  
-  const imageDownloadUrl = URL.createObjectURL(blob);
-  windowDownloadBtn.href = imageDownloadUrl;
-}*/
 
 
 wholeImgContainer.addEventListener('click',(e) => {
@@ -183,8 +147,3 @@ wholeImgContainer.addEventListener('click',(e) => {
 
   }
 });
-/*
-windowBackBtn.addEventListener('click',() => { 
-  windowOuterContainer.classList.add('disabled');
-});*/
-
