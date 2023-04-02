@@ -145,7 +145,7 @@ form.addEventListener('submit',async (e) => {
     holdValue = searchInput.value.trim();
   }
 });
-
+/*
 function handleWindow(image,imageTitle){
   windowOuterContainer.classList.remove('disabled');
   WindowImageTitle.innerText = imageTitle.innerText;
@@ -168,7 +168,7 @@ async function fetchImage(image){
   
   const imageDownloadUrl = URL.createObjectURL(blob);
   windowDownloadBtn.href = imageDownloadUrl;
-}
+}*/
 
 
 wholeImgContainer.addEventListener('click',(e) => {
@@ -178,7 +178,7 @@ wholeImgContainer.addEventListener('click',(e) => {
     
     let image = children.parentElement.previousElementSibling.src;
     let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
-    window.location.href = '/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title);
+    window.location.href = '/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
 
   }
 });

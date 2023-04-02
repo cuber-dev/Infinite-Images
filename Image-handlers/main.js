@@ -27,10 +27,12 @@ function extractParams(){
   const urlParams = new URLSearchParams(window.location.search);
   const image = urlParams.get('image');
   const title = urlParams.get('title');
+  const searchParam = urlParams.get('searchParam');
+  
   
   pickedImage.src = image;
   pickedImgTitle.innerText = title;
-  return image;
+  return { image , title , searchParam };
 }
 
 
@@ -76,7 +78,7 @@ function addImageElements(data) {
 
     // Adding data 
     relatedImageTitle.innerText = data.results[i].alt_description;
-    image.src = data.results[i].urls.full;
+    relatedImage.src = data.results[i].urls.full;
     selfSearchBtn.innerText = "Download";
 
     // Adding animation until the image loads
@@ -117,19 +119,23 @@ async function getWords(query) {
   return json;
 }
 
-async function getSynonyms(word) {
-  const query = `rel_jjb=${word}`;
+async function getSynonyms(title) {
+  const query = `ml=${title}&max=5`;
   const words = await getWords(query);
   return words;
 }
 
 
-function handleWindowLoad(){
-  const { image , title } = extractParams();
+async function handleWindowLoad(){
+  const { image , title , searchParam } = extractParams();
   fetchImage(image);
   
-  const synonyms = await getSynonyms(title);
-  console.log(synonyms)
+  let list = title.split(' ');
+  let words = list[0] + ' ' + list[1] + ' ' + searchParam;
+ // const synonyms = await getSynonyms(title);
+ // console.log(synonyms);
+
+  getRelatedImages(title, 5);
 }
 
 
