@@ -7,8 +7,13 @@ const submitBtn = document.querySelector('#submit');
 const wholeImgContainer = document.querySelector('.whole-img-container');
 const columnDivs = Array.from(document.querySelectorAll('.column-div'));
 
-/* load more elements */
+/* load more */
 const loadMoreContainer = document.querySelector('.load-more-container');
+
+/* Scroll to top */
+const gotoTopBtn = document.querySelector('.goto-top-btn');
+
+
 
 // Global variables 
 let nextPage = 0;
@@ -143,7 +148,7 @@ async function handleFormSubmit(e){
     
     setTimeout( async () => {
       if(columnDivs[2].innerHTML === '') await getImages(searchInput.value.trim(), 15);
-      else form.submit();
+      else submitBtn.click();
      },3000);
     
     holdValue = searchInput.value.trim();
@@ -188,18 +193,19 @@ async function addImageElementsByScroll() {
 const lastChildObserver = new IntersectionObserver(async entries => {
   const lastChild = entries[0];
   
-  if(!lastChild.isIntersecting) {
-    console.log('not intersecting');
-    return;
-  }
+  if(!lastChild.isIntersecting) return;
   
   await addImageElementsByScroll();
-  //lastChildObserver.unobserve(lastChild.target);
   
-  console.log('intersecting');
-  
- // lastChildObserver.observe(document.body.querySelector('.image-container:last-child'));
 }, {
   rootMargin : '100px'
 });
 
+
+
+
+window.addEventListener('scroll',() => {
+  if(window.pageYOffset > 100) gotoTopBtn.classList.add('show');
+ 
+  else gotoTopBtn.classList.remove('show');
+});
