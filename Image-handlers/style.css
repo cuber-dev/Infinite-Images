@@ -14,7 +14,7 @@ body{
   --theme-3 : #56cf70;
   --white : #fff;
   --black : #000;
-  --grey  : #C6C6C7;
+  --grey  : #ACACAC;
 }
 
 header{
@@ -39,10 +39,29 @@ header .heading{
   background: var(--grey);
   color: white;
   opacity: 0.7;
+  transition: all 800ms linear;
 }
 #back-btn:hover{
   opacity: 1;
 }
+#back-btn::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px; 
+  width: 25px;
+  background: var(--grey);
+  border-radius: 50%;
+  z-index: -1;
+  transition: all 500ms linear;
+  opacity: 0;
+}
+#back-btn:hover::after{
+  transform: scale(70);
+  opacity: 0.8;
+}
+
 
 
 

@@ -73,6 +73,7 @@ async function getImages(photoName,limit = 30) {
   const url = `https://api.unsplash.com/search/photos?query=${photoName}&per_page=${limit}&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo`;
   const responose = await fetch(url);
   const data = await responose.json();
+  console.log(data);
   addImageElements(data);
 }
 
@@ -96,7 +97,7 @@ function addImageElements(data){
      
     // Adding data 
     imageTitle.innerText = data.results[i].alt_description;
-    image.src = data.results[i].urls.full;
+    image.src = data.results[i].urls.regular;
     popUpWindowBtn.innerText = "Download";
     
     // Adding animation until the image loads
@@ -141,7 +142,7 @@ form.addEventListener('submit',async (e) => {
   if(searchInput.value.trim() === holdValue){
     return; 
   }else{
-    await debounceRequest(searchInput.value.trim(),1);
+    await debounceRequest(searchInput.value.trim(),30);
     holdValue = searchInput.value.trim();
   }
 });

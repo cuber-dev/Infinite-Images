@@ -46,6 +46,7 @@ async function fetchImage(image){
   
   if (downloadBtn.href !== 'index.htm') {
     downloadBtn.classList.remove('disabled');
+    downloadBtn.innerHTML = 'Download Image <i class="fa fa-download icon" aria-hidden="true"></i>';
   }
 }
 
@@ -130,13 +131,15 @@ async function handleWindowLoad(){
   const { image , title , searchParam } = extractParams();
   fetchImage(image);
   
-  let list = title.split(' ');
-  let words = list[0] + ' ' + list[1] + ' ' + searchParam;
- // const synonyms = await getSynonyms(title);
- // console.log(synonyms);
-
-  getRelatedImages(title, 5);
+  /*let list = title.split(' ');
+  let words = list[0] + ' ' + searchParam;
+  const synonyms = await getSynonyms(words);
+  console.log(synonyms);*/
+  
+  //getRelatedImages(synonyms[0].word, 5);*/
 }
 
 
 window.addEventListener('load',handleWindowLoad);
+
+
