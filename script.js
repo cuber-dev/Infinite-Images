@@ -9,7 +9,6 @@ const columnDivs = Array.from(document.querySelectorAll('.column-div'));
 
 /* load more elements */
 const loadMoreContainer = document.querySelector('.load-more-container');
-const loadMoreBtn = document.querySelector('#load-more');
 
 // Global variables 
 let nextPage = 0;
@@ -56,7 +55,7 @@ async function getImages(photoName, limit = 30) {
   const response = await fetch(url, {
     headers: {
       Authorization: 'jhaRNPVlrpGVp8JO2GP3GBChuVMnOc6cL0W5ci780jSRjf35hKgEq2O3',
-    },
+    }
   });
   const data = await response.json();
   
@@ -117,7 +116,12 @@ function addImageElements(data){
 
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
-  },1000 * 8);
+    
+    lastChildObserver.observe(loadMoreContainer);
+
+  },1000 * 3);
+  
+  
 }
 
 async function handleFormSubmit(e){
@@ -127,16 +131,24 @@ async function handleFormSubmit(e){
     return;
   } else {
   
+    lastChildObserver.observe(loadMoreContainer);
+
     wholeImgContainer.classList.add('loading');
   
     columnDivs.forEach(column => {
       column.innerHTML = '';
     });
-  
-    await getImages(searchInput.value.trim(), 30);
+    
+    nextPage = 0;
+    
+    setTimeout( async () => {
+      if(columnDivs[2].innerHTML === '') await getImages(searchInput.value.trim(), 5);
+      else form.submit();
+     },3000);
     
     holdValue = searchInput.value.trim();
     globalImageName = holdValue;
+    
   }
 }
 form.addEventListener('submit',async (e) => {handleFormSubmit(e)});
@@ -157,11 +169,33 @@ async function handleImageClick(e){
 wholeImgContainer.addEventListener('click',(e) => {handleImageClick(e)});
 
 
-loadMoreBtn.addEventListener('click',async () => {
-  await getImages(globalImageName,10);
-  loadMoreContainer.classList.add('loading');
 
+async function addImageElementsByScroll() {
+  await getImages(globalImageName, 5);
+  
+  await getImages(globalImageName, 10);
+  loadMoreContainer.classList.add('loading');
+  
   setTimeout(() => {
     loadMoreContainer.classList.remove('loading');
-  },1000 * 8);
+  }, 1000 * 8);
+}
+
+const lastChildObserver = new IntersectionObserver(async entries => {
+  const lastChild = entries[0];
+  
+  if(!lastChild.isIntersecting) {
+    console.log('not intersecting');
+    return;
+  }
+  
+  await addImageElementsByScroll();
+  //lastChildObserver.unobserve(lastChild.target);
+  
+  console.log('intersecting');
+  
+ // lastChildObserver.observe(document.body.querySelector('.image-container:last-child'));
+}, {
+  rootMargin : '100px'
 });
+

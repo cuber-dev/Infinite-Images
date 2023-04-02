@@ -195,24 +195,6 @@ main .load-more-container{
   width: 100%;
   padding: 5rem 0;
 }
-main .load-more-container #load-more{
-  padding: 1rem;
-  background-color: #1f3624;
-  border: var(--theme-2);
-  color: var(--white);
-  font-weight: bold;
-  letter-spacing: 1.5px;
-  font-size: 1rem;
-  border-radius: .3rem;
-  cursor: pointer;
-}
-
-main .load-more-container #load-more:hover{
-  opacity: 0.7;
-}
-main .load-more-container.disabled #load-more{
-  display: none;
-}
 
 main .load-more-container.loading{
   min-height: 30vh;
