@@ -130,19 +130,35 @@ async function handleWindowLoad(){
   const { image , title , searchParam } = extractParams();
   fetchImage(image);
   
-  getRelatedImages(title, 5);
+  getRelatedImages(title);
 }
+
+
+
+function handleSelfClick(e){
+  const children = e.target;
+  if (children.matches('.self-search-btn')) {
+    let image = children.parentElement.previousElementSibling.src;
+    let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
+  
+    pickedImgTitle.innerText = title;
+    pickedImage.src = image;
+  
+    imageContainer.classList.add('buffer');
+    downloadBtn.classList.add('disabled');
+    downloadBtn.innerHTML = 'Loading...';
+
+    fetchImage(image);
+  
+    getRelatedImages(title);
+  }
+}
+
+
 
 window.addEventListener('load',handleWindowLoad);
 
-
 relatedImagesGrid.addEventListener('click',(e) => {
-  const children = e.target;
-  if(children.matches('.self-search-btn')){
-    let image = children.parentElement.previousElementSibling.src;
-    let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
-    
-    
-  }
+  handleSelfClick(e);
 });
 
