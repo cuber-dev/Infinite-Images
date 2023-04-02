@@ -171,14 +171,19 @@ wholeImgContainer.addEventListener('click',(e) => {handleImageClick(e)});
 
 
 async function addImageElementsByScroll() {
-  await getImages(globalImageName, 5);
-  
-  await getImages(globalImageName, 10);
-  loadMoreContainer.classList.add('loading');
-  
-  setTimeout(() => {
+  try{
+    await getImages(globalImageName, 5);
+    
+    await getImages(globalImageName, 10);
+    loadMoreContainer.classList.add('loading');
+    
+    setTimeout(() => {
+      loadMoreContainer.classList.remove('loading');
+    }, 1000 * 8);
+  }catch(e){
     loadMoreContainer.classList.remove('loading');
-  }, 1000 * 8);
+    loadMoreContainer.innerText = 'Reached the End';
+  }
 }
 
 const lastChildObserver = new IntersectionObserver(async entries => {
