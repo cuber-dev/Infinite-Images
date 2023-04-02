@@ -25,7 +25,6 @@ backBtn.addEventListener('click', () => {
 
 /* URL extracter */
 function extractParams(){
- imageContainer.classList.add('buffer');
   
   const urlParams = new URLSearchParams(window.location.search);
   const image = urlParams.get('image');
