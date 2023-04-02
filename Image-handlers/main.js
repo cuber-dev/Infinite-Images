@@ -18,7 +18,7 @@ const backBtn = document.querySelector('#back-btn');
 backBtn.addEventListener('click', () => {
   setTimeout(() => {
     window.history.back();
-  },1000);
+  },500);
 });
 
 
@@ -131,15 +131,13 @@ async function handleWindowLoad(){
   const { image , title , searchParam } = extractParams();
   fetchImage(image);
   
-  /*let list = title.split(' ');
+  let list = title.split(' ');
   let words = list[0] + ' ' + searchParam;
   const synonyms = await getSynonyms(words);
-  console.log(synonyms);*/
+  console.log(synonyms);
   
-  //getRelatedImages(synonyms[0].word, 5);*/
+  //getRelatedImages(synonyms[0].word, 5);
 }
 
-
 window.addEventListener('load',handleWindowLoad);
-
 

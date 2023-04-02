@@ -61,7 +61,6 @@ async function getImages(photoName,limit = 30) {
   const url = `https://api.unsplash.com/search/photos?query=${photoName}&per_page=${limit}&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo`;
   const responose = await fetch(url);
   const data = await responose.json();
-  console.log(data);
   addImageElements(data);
 }
 
@@ -139,7 +138,6 @@ form.addEventListener('submit',async (e) => {
 wholeImgContainer.addEventListener('click',(e) => {
   const children = e.target;
   if(children.matches('.redirector-btn')){
-    //handleWindow(children.parentElement.previousElementSibling,children.parentElement.previousElementSibling.previousElementSibling);
     
     let image = children.parentElement.previousElementSibling.src;
     let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;

@@ -54,12 +54,12 @@ header .heading{
   background: var(--grey);
   border-radius: 50%;
   z-index: -1;
-  transition: all 500ms linear;
+  transition: all 400ms linear;
   opacity: 0;
 }
 #back-btn:hover::after{
   transform: scale(70);
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 
