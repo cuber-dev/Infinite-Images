@@ -61,7 +61,7 @@ async function fetchImage(image){
 async function getRelatedImages(title, limit = 30) {
   loadMoreContainer.classList.add('disabled');
 
-  const url = `https://api.pexels.com/v1/search?query=${photoName}&per_page=${limit}`;
+  const url = `https://api.pexels.com/v1/search?query=${title}&per_page=${limit}`;
   const response = await fetch(url, {
     headers: {
       Authorization: 'jhaRNPVlrpGVp8JO2GP3GBChuVMnOc6cL0W5ci780jSRjf35hKgEq2O3',
@@ -81,7 +81,7 @@ function addImageElements(data) {
 
   for (let i = 0; i < data.photos.length; i++) {
     const column = columnDivs[i % 3]; // select the correct column based on i
-
+    
     // Creating elements 
     const relatedImageContainer = document.createElement('div');
     const relatedImageTitle = document.createElement('span');
@@ -91,7 +91,7 @@ function addImageElements(data) {
 
     // Adding data 
     relatedImageTitle.innerText = data.photos[i].alt;
-    relatedImage.src = data.photos[i].src.original;
+    relatedImage.src = data.photos[i].src.large;
     selfSearchBtn.innerText = "Download";
 
     // Adding animation until the image loads
@@ -119,7 +119,6 @@ function addImageElements(data) {
 
     // Appending To each column 
     column.append(relatedImageContainer);
-
   }
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
@@ -142,6 +141,8 @@ relatedImagesGrid.addEventListener('click',(e) => {
   if(children.matches('.self-search-btn')){
     let image = children.parentElement.previousElementSibling.src;
     let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
+    
+    
   }
 });
 

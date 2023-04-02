@@ -80,7 +80,7 @@ function addImageElements(data){
      
     // Adding data 
     imageTitle.innerText = data.photos[i].alt;
-    image.src = data.photos[i].src.original;
+    image.src = data.photos[i].src.large;
     popUpWindowBtn.innerText = "Download";
     
     // Adding animation until the image loads
@@ -128,7 +128,7 @@ form.addEventListener('submit',async (e) => {
   if(searchInput.value.trim() === holdValue){
     return; 
   }else{
-    await getImages(searchInput.value.trim(),5);
+    await getImages(searchInput.value.trim(),3);
     holdValue = searchInput.value.trim();
     
   }
@@ -141,7 +141,9 @@ wholeImgContainer.addEventListener('click',(e) => {
     
     let image = children.parentElement.previousElementSibling.src;
     let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
-    window.location.href = 'https://cuber-dev.github.io/Infinite-Images/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
+   // window.location.href = 'https://cuber-dev.github.io/Infinite-Images/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
+   
+    window.location.href = '/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
 
   }
 });

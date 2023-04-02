@@ -86,7 +86,7 @@ main .picked-image-container .image-container{
 }
 
 main .picked-image-container .image-container.buffer *,
-main .picked-image-container .image-container.buffer #picked{
+main .picked-image-container .image-container.buffer #picked-image{
   display: none;
 }
 main .picked-image-container .image-container.buffer{
