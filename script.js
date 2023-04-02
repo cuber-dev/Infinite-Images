@@ -44,20 +44,11 @@ changeWord();
 
 
 
-/* ================== Debounce ======================*/
-function debounceTimeout(getImages ,delay = 1000){
-  let timeOut;
-  return async (photoName,limit) => {
-    clearTimeout(timeOut);
-    timeOut = setTimeout(async () => {
-      await getImages(photoName,limit);
-    }, delay);
-  }
-}
-const debounceRequest = debounceTimeout(getImages,1500);
 
 /* Making api request */
 async function getImages(photoName,limit = 30) {
+  wholeImgContainer.classList.add('loading');
+
   const url = `https://api.unsplash.com/search/photos?query=${photoName}&per_page=${limit}&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo`;
   const responose = await fetch(url);
   const data = await responose.json();
@@ -67,6 +58,7 @@ async function getImages(photoName,limit = 30) {
 
 /* Add image elements to each column */
 function addImageElements(data){
+  
   columnDivs.forEach(column => {
     column.innerHTML = '';
   });
@@ -115,6 +107,9 @@ function addImageElements(data){
     column.append(imageContainer);    
     
   }
+  
+  wholeImgContainer.classList.remove('loading');
+
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
   },1000 * 10);
@@ -129,8 +124,9 @@ form.addEventListener('submit',async (e) => {
   if(searchInput.value.trim() === holdValue){
     return; 
   }else{
-    await debounceRequest(searchInput.value.trim(),30);
+    await getImages(searchInput.value.trim(),30);
     holdValue = searchInput.value.trim();
+    
   }
 });
 

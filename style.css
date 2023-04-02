@@ -81,7 +81,34 @@ main .whole-img-container{
   padding:1rem;
  
 }
+main .whole-img-container.loading{
+  min-height: 80vh;
+  background: white;
+  position: relative;
+}
+main .whole-img-container.loading::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) ;
+  height: 35px;
+  width: 35px;
+  border: 5px solid grey;
+  border-radius: 50%;
+  border-bottom-style: dotted;
+  animation: load 1s linear infinite;
+}
+@keyframes load{
+  to{
+    transform: translate(-50%,-50%)  rotate(1turn);
+  }
+}
 
+
+main .whole-img-container.loading *{
+  display: none;
+}
 main .whole-img-container .column-div{
   display: flex;
   gap: 1rem;

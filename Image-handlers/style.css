@@ -85,6 +85,34 @@ main .picked-image-container .image-container{
   width:600px;
 }
 
+main .picked-image-container .image-container.buffer *,
+main .picked-image-container .image-container.buffer #picked{
+  display: none;
+}
+main .picked-image-container .image-container.buffer{
+  height: 50vh;
+  width: 100%;
+  position: relative;
+}
+main .picked-image-container .image-container.buffer::after{
+  content: '';
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  height: 35px;
+  width: 35px;
+  border: 5px solid grey;
+  border-radius: 50%;
+  border-bottom-style: dotted;
+  animation: load 1s linear infinite;
+}
+@keyframes load{
+  to{
+    transform: translate(-50%,-50%)  rotate(1turn);
+  }
+}
+
 main .picked-image-container .image-container #picked-image-title{
   background: #E7E7E7;
   padding: 1rem;
@@ -93,10 +121,12 @@ main .picked-image-container .image-container #picked-image-title{
   font-size: 1.1rem;
   font-weight: bold;
 }
-main .picked-image-container .image-container #picked-image{
+
+main .picked-image-container .image-container #picked-image {
   display: block;
   width: 100%;
 }
+
 main .picked-image-container .download-container{
   display: flex;
   align-items: center;

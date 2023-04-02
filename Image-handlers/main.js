@@ -1,4 +1,5 @@
 /* Picked image elements */
+const imageContainer = document.querySelector('.image-container');
 const pickedImgTitle = document.querySelector('#picked-image-title');
 const pickedImage = document.querySelector('#picked-image');
 const downloadBtn = document.querySelector('#download-btn');
@@ -24,14 +25,20 @@ backBtn.addEventListener('click', () => {
 
 /* URL extracter */
 function extractParams(){
+ imageContainer.classList.add('buffer');
+  
   const urlParams = new URLSearchParams(window.location.search);
   const image = urlParams.get('image');
   const title = urlParams.get('title');
   const searchParam = urlParams.get('searchParam');
   
-  
   pickedImage.src = image;
   pickedImgTitle.innerText = title;
+  
+  pickedImage.addEventListener('load',() => {
+   imageContainer.classList.remove('buffer');
+  });
+  
   return { image , title , searchParam };
 }
 
@@ -40,11 +47,11 @@ function extractParams(){
 async function fetchImage(image){
   const response = await fetch(image);
   const blob = await response.blob();
-  
+
   const imageDownloadUrl = URL.createObjectURL(blob);
   downloadBtn.href = imageDownloadUrl;
   
-  if (downloadBtn.href !== 'index.htm') {
+  if (downloadBtn.href !== 'index.htm' && downloadBtn.href !== '' && image !== null) {
     downloadBtn.classList.remove('disabled');
     downloadBtn.innerHTML = 'Download Image <i class="fa fa-download icon" aria-hidden="true"></i>';
   }
@@ -53,6 +60,8 @@ async function fetchImage(image){
 
 // Related image fetcher 
 async function getRelatedImages(title, limit = 30) {
+  loadMoreContainer.classList.add('disabled');
+
   const url = `https://api.unsplash.com/search/photos?query=${title}&per_page=${limit}&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo`;
   const responose = await fetch(url);
   const data = await responose.json();
@@ -65,7 +74,6 @@ function addImageElements(data) {
   columnDivs.forEach(column => {
     column.innerHTML = '';
   });
-  loadMoreContainer.classList.add('disabled');
 
   for (let i = 0; i < data.results.length; i++) {
     const column = columnDivs[i % 3]; // select the correct column based on i
@@ -131,10 +139,10 @@ async function handleWindowLoad(){
   const { image , title , searchParam } = extractParams();
   fetchImage(image);
   
-  let list = title.split(' ');
+  /*let list = title.split(' ');
   let words = list[0] + ' ' + searchParam;
   const synonyms = await getSynonyms(words);
-  console.log(synonyms);
+  console.log(synonyms);*/
   
   //getRelatedImages(synonyms[0].word, 5);
 }
