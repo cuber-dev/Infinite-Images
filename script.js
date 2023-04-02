@@ -142,7 +142,7 @@ async function handleFormSubmit(e){
     nextPage = 0;
     
     setTimeout( async () => {
-      if(columnDivs[2].innerHTML === '') await getImages(searchInput.value.trim(), 5);
+      if(columnDivs[2].innerHTML === '') await getImages(searchInput.value.trim(), 15);
       else form.submit();
      },3000);
     
@@ -172,9 +172,8 @@ wholeImgContainer.addEventListener('click',(e) => {handleImageClick(e)});
 
 async function addImageElementsByScroll() {
   try{
-    await getImages(globalImageName, 5);
-    
     await getImages(globalImageName, 10);
+    
     loadMoreContainer.classList.add('loading');
     
     setTimeout(() => {
