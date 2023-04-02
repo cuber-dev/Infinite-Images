@@ -61,9 +61,14 @@ async function fetchImage(image){
 async function getRelatedImages(title, limit = 30) {
   loadMoreContainer.classList.add('disabled');
 
-  const url = `https://api.unsplash.com/search/photos?query=${title}&per_page=${limit}&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo`;
-  const responose = await fetch(url);
-  const data = await responose.json();
+  const url = `https://api.pexels.com/v1/search?query=${photoName}&per_page=${limit}`;
+  const response = await fetch(url, {
+    headers: {
+      Authorization: 'jhaRNPVlrpGVp8JO2GP3GBChuVMnOc6cL0W5ci780jSRjf35hKgEq2O3',
+    },
+  });
+  const data = await response.json();
+  
   addImageElements(data);
 }
 
@@ -74,7 +79,7 @@ function addImageElements(data) {
     column.innerHTML = '';
   });
 
-  for (let i = 0; i < data.results.length; i++) {
+  for (let i = 0; i < data.photos.length; i++) {
     const column = columnDivs[i % 3]; // select the correct column based on i
 
     // Creating elements 
@@ -85,8 +90,8 @@ function addImageElements(data) {
     const selfSearchBtn = document.createElement('button');
 
     // Adding data 
-    relatedImageTitle.innerText = data.results[i].alt_description;
-    relatedImage.src = data.results[i].urls.full;
+    relatedImageTitle.innerText = data.photos[i].alt;
+    relatedImage.src = data.photos[i].src.original;
     selfSearchBtn.innerText = "Download";
 
     // Adding animation until the image loads
@@ -120,31 +125,23 @@ function addImageElements(data) {
     loadMoreContainer.classList.remove('disabled');
   },1000 * 10);
 }
-async function getWords(query) {
-  const url = `https://api.datamuse.com/words?${query}`;
-  const response = await fetch(url);
-  const json = await response.json();
-  return json;
-}
-
-async function getSynonyms(title) {
-  const query = `ml=${title}&max=5`;
-  const words = await getWords(query);
-  return words;
-}
 
 
 async function handleWindowLoad(){
   const { image , title , searchParam } = extractParams();
   fetchImage(image);
   
-  /*let list = title.split(' ');
-  let words = list[0] + ' ' + searchParam;
-  const synonyms = await getSynonyms(words);
-  console.log(synonyms);*/
-  
-  //getRelatedImages(synonyms[0].word, 5);
+  getRelatedImages(title, 5);
 }
 
 window.addEventListener('load',handleWindowLoad);
+
+
+relatedImagesGrid.addEventListener('click',(e) => {
+  const children = e.target;
+  if(children.matches('.self-search-btn')){
+    let image = children.parentElement.previousElementSibling.src;
+    let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
+  }
+});
 
