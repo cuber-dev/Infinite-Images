@@ -128,7 +128,7 @@ form.addEventListener('submit',async (e) => {
   if(searchInput.value.trim() === holdValue){
     return; 
   }else{
-    await getImages(searchInput.value.trim(),3);
+    await getImages(searchInput.value.trim());
     holdValue = searchInput.value.trim();
     
   }
