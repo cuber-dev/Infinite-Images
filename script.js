@@ -46,12 +46,16 @@ changeWord();
 
 
 /* Making api request */
-async function getImages(photoName,limit = 30) {
+async function getImages(photoName, limit = 30) {
   wholeImgContainer.classList.add('loading');
 
-  const url = `https://api.unsplash.com/search/photos?query=${photoName}&per_page=${limit}&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo`;
-  const responose = await fetch(url);
-  const data = await responose.json();
+  const url = `https://api.pexels.com/v1/search?query=${photoName}&per_page=${limit}`;
+  const response = await fetch(url, {
+    headers: {
+      Authorization: 'jhaRNPVlrpGVp8JO2GP3GBChuVMnOc6cL0W5ci780jSRjf35hKgEq2O3',
+    },
+  });
+  const data = await response.json();
   addImageElements(data);
 }
 
@@ -64,7 +68,7 @@ function addImageElements(data){
   });
   loadMoreContainer.classList.add('disabled');
   
-  for(let i = 0; i < data.results.length; i++){
+  for(let i = 0; i < data.photos.length; i++){
     const column = columnDivs[i % 3]; // select the correct column based on i
 
     // Creating elements 
@@ -75,8 +79,8 @@ function addImageElements(data){
     const popUpWindowBtn = document.createElement('button');
      
     // Adding data 
-    imageTitle.innerText = data.results[i].alt_description;
-    image.src = data.results[i].urls.regular;
+    imageTitle.innerText = data.photos[i].alt;
+    image.src = data.photos[i].src.original;
     popUpWindowBtn.innerText = "Download";
     
     // Adding animation until the image loads
@@ -124,7 +128,7 @@ form.addEventListener('submit',async (e) => {
   if(searchInput.value.trim() === holdValue){
     return; 
   }else{
-    await getImages(searchInput.value.trim(),30);
+    await getImages(searchInput.value.trim(),5);
     holdValue = searchInput.value.trim();
     
   }
