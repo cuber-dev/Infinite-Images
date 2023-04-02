@@ -27,7 +27,8 @@ const gotoTopBtn = document.querySelector('#goto-top-btn');
 
 /* URL extracter */
 function extractParams(){
-  
+  imageContainer.classList.add('buffer');
+
   const urlParams = new URLSearchParams(window.location.search);
   const image = urlParams.get('image');
   const title = urlParams.get('title');
@@ -46,6 +47,8 @@ function extractParams(){
 
 // fetching image for download 
 async function fetchImage(image){
+  downloadBtn.classList.add('disabled');
+
   const response = await fetch(image);
   const blob = await response.blob();
 
@@ -77,10 +80,7 @@ async function getRelatedImages(title, limit = 30) {
 
 /* Add image elements to each column */
 function addImageElements(data) {
-  columnDivs.forEach(column => {
-    column.innerHTML = '';
-  });
-
+  
   for (let i = 0; i < data.photos.length; i++) {
     const column = columnDivs[i % 3]; // select the correct column based on i
     
@@ -146,9 +146,12 @@ function handleSelfClick(e){
     pickedImgTitle.innerText = title;
     pickedImage.src = image;
   
-    imageContainer.classList.add('buffer');
-    downloadBtn.classList.add('disabled');
     downloadBtn.innerHTML = 'Loading...';
+    setTimeout(() => {
+      columnDivs.forEach(column => {
+        column.innerHTML = '';
+      });
+    },500);
 
     fetchImage(image);
   
