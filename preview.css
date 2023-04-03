@@ -127,6 +127,11 @@ main .picked-image-container .download-container #download-btn.disabled{
   opacity: 0.7;
 }
 
+@keyframes load{
+  to{
+    transform: translate(-50%,-50%)  rotate(1turn);
+  }
+}
 
 
 
