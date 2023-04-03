@@ -101,7 +101,7 @@ async function getRelatedImages(title = globalImageTitle, limit = 15) {
 function addImageElements(data) {
   
   for (let i = 0; i < data.photos.length; i++) {
-    if (window.innerWidth < 600) { // check if screen width is less than 768px (mobile size)
+    if (window.innerWidth < 550) { // check if screen width is less than 768px (mobile size)
       column = columnDivs[0]; // select the first column
     } else {
       column = columnDivs[i % 3]; // select the correct column based on i
