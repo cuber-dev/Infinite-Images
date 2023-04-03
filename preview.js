@@ -32,6 +32,7 @@ backBtn.addEventListener('click', () => {
 let nextPage = 0;
 let globalImageTitle = '';
 
+// Observer for adding more images by scolll
 
 const observer = new IntersectionObserver(async entries => {
   const lastChild = entries[0];
@@ -146,7 +147,7 @@ function addImageElements(data) {
   observer.observe(loadMoreContainer);
 }
 
-
+// Handle windwow load 
 async function handleWindowLoad(){
   const { image , title , searchParam } = extractParams();
   fetchImage(image);
@@ -156,7 +157,7 @@ async function handleWindowLoad(){
 }
 window.addEventListener('load',handleWindowLoad);
 
-
+// Handle self donwload clicks
 function handleSelfClick(e){
   const children = e.target;
   if (children.matches('.self-search-btn')) {

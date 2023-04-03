@@ -50,6 +50,7 @@ function changeWord(){
 changeWord();
 /* ============================================= */
 
+// Observer for adding more images by scolll
 const observer = new IntersectionObserver(async entries => {
   const lastChild = entries[0];
   
@@ -129,6 +130,7 @@ function addImageElements(data){
   observer.observe(loadMoreContainer);
 }
 
+// Handle form submissions
 async function handleFormSubmit(e){
   e.preventDefault();
   
@@ -158,8 +160,8 @@ async function handleFormSubmit(e){
 }
 form.addEventListener('submit',async (e) => {handleFormSubmit(e)});
 
-
-async function handleImageClick(e){
+// Handle image redirector button clicks
+async function handleRedirectorClick(e){
   const children = e.target;
   if (children.matches('.redirector-btn')) {
   
@@ -170,7 +172,7 @@ async function handleImageClick(e){
   
   }
 }
-imageGrid.addEventListener('click',(e) => {handleImageClick(e)});
+imageGrid.addEventListener('click',(e) => {handleRedirectorClick(e)});
 
 
 
