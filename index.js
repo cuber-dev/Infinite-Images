@@ -10,8 +10,7 @@ const columnDivs = Array.from(document.querySelectorAll('.column-div'));
 /* load more */
 const loadMoreContainer = document.querySelector('.load-more-container');
 
-/* Scroll to top */
-const gotoTopBtn = document.querySelector('.goto-top-btn');
+
 
 
 
@@ -63,7 +62,7 @@ const observer = new IntersectionObserver(async entries => {
 
 
 /* Making api request */
-async function getImages(photoName, limit = 30) {
+async function getImages(photoName = globalImageName, limit = 30) {
 
   const url = `https://api.pexels.com/v1/search?query=${photoName}&per_page=${limit}&page=${nextPage++}`;
   const response = await fetch(url, {
@@ -174,7 +173,6 @@ async function handleImageClick(e){
   
     let image = children.parentElement.previousElementSibling.src;
     let title = children.parentElement.previousElementSibling.previousElementSibling.innerText;
-    // window.location.href = 'https://cuber-dev.github.io/Infinite-Images/Image-handlers/preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
   
     window.location.href = 'preview.html?image=' + encodeURI(image) + '&title=' + encodeURI(title) + '&searchParam=' + encodeURI(searchInput.value.trim());
   
@@ -186,7 +184,7 @@ imageGrid.addEventListener('click',(e) => {handleImageClick(e)});
 
 async function addImageElementsByScroll() {
   try{
-    await getImages(globalImageName, 10);
+    await getImages();
     
     loadMoreContainer.classList.add('loading');
     
@@ -204,8 +202,3 @@ async function addImageElementsByScroll() {
 
 
 
-window.addEventListener('scroll',() => {
-  if(window.pageYOffset > 100) gotoTopBtn.classList.add('show');
- 
-  else gotoTopBtn.classList.remove('show');
-});

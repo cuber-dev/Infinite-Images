@@ -13,7 +13,6 @@ const selfSearchBtn = document.querySelector('.self-search-btn');
 
 /* Load more container */
 const loadMoreContainer = document.querySelector('.load-more-container');
-const loadMoreBtn = document.querySelector('#load-more');
 
 /* Back button */
 const backBtn = document.querySelector('#back-btn');
@@ -182,11 +181,11 @@ relatedImagesGrid.addEventListener('click',(e) => {
 });
 
 
-loadMoreBtn.addEventListener('click',async () => {
-  await getRelatedImages(globalImageName,15);
-  loadMoreContainer.classList.add('loading');
+// loadMoreBtn.addEventListener('click',async () => {
+//   await getRelatedImages(globalImageName,15);
+//   loadMoreContainer.classList.add('loading');
   
-  setTimeout(() => {
-    loadMoreContainer.classList.remove('loading');
-  }, 1000 * 8);
-});
+//   setTimeout(() => {
+//     loadMoreContainer.classList.remove('loading');
+//   }, 1000 * 8);
+// });
