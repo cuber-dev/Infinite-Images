@@ -1,16 +1,24 @@
+
+/* Set smooth scroll behavior for the entire document */
 html{
   scroll-behavior: smooth;
 }
+
+/* Set common styles for the body of the document */
 body{
     padding:0;
     margin:0;
     font-family: 'Dosis', sans-serif;
 }
+
+/* Set box-sizing for all elements and reset margin and padding */
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Define color variables to be used throughout the document */
 :root{
   --theme-1 : #000000;
   --theme-2 : #4edf6d;
@@ -20,6 +28,7 @@ body{
   --grey  : #ACACAC;
 }
 
+/* Set styles for the header section */
 header{
   background: black;
   display: flex;
@@ -31,6 +40,7 @@ header .heading{
   color: var(--theme-2);
 }
 
+/* Set styles for the back button */
 #back-btn{
   position: fixed;
   top: 1.5rem;
@@ -50,11 +60,7 @@ header .heading{
   opacity: 1;
 }
 
-
-
-
-
-
+/* Set styles for the picked-image-container section */
 main .picked-image-container{
   display: flex;
   flex-direction: column;
@@ -72,6 +78,7 @@ main .picked-image-container .image-container{
   width:400px;
 }
 
+/* Hide the content of the buffer container and show a loading icon */
 main .picked-image-container .image-container.buffer *,
 main .picked-image-container .image-container.buffer #picked-image{
   display: none;
@@ -95,6 +102,7 @@ main .picked-image-container .image-container.buffer::after{
   animation: load 1s linear infinite;
 }
 
+/* Set styles for the title and image of the picked-image-container section */
 main .picked-image-container .image-container #picked-image-title{
   background: #E7E7E7;
   padding: 1rem;
@@ -109,6 +117,7 @@ main .picked-image-container .image-container #picked-image {
   width: 100%;
 }
 
+/* Set styles for the download container */
 main .picked-image-container .download-container{
   display: flex;
   align-items: center;
