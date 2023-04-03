@@ -1,3 +1,4 @@
+
 /* Picked image elements */
 const imageContainer = document.querySelector('.image-container');
 const pickedImgTitle = document.querySelector('#picked-image-title');
@@ -14,6 +15,9 @@ const selfSearchBtn = document.querySelector('.self-search-btn');
 /* Load more container */
 const loadMoreContainer = document.querySelector('.load-more-container');
 
+const gotoTopBtn = document.querySelector('.goto-top-btn');
+
+
 /* Back button */
 const backBtn = document.querySelector('#back-btn');
 backBtn.addEventListener('click', () => {
@@ -23,16 +27,22 @@ backBtn.addEventListener('click', () => {
   },300);
 });
 
-/* Go-to top button */
-const gotoTopBtn = document.querySelector('#goto-top-btn');
-
-
 
 // Global variables 
 let nextPage = 0;
-let globalImageName = '';
+let globalImageTitle = '';
 
 
+const observer = new IntersectionObserver(async entries => {
+  const lastChild = entries[0];
+  
+  if(!lastChild.isIntersecting) return;
+  
+  await addImageElementsByScroll();
+  
+}, {
+  rootMargin : '100px'
+});
 
 
 
@@ -73,9 +83,7 @@ async function fetchImage(image){
 }
 
 // Related image fetcher 
-async function getRelatedImages(title, limit) {
-  loadMoreContainer.classList.add('disabled');
-  
+async function getRelatedImages(title = globalImageTitle, limit = 15) {
   const url = `https://api.pexels.com/v1/search?query=${title}&per_page=${limit}&page=${nextPage++}`;
   const response = await fetch(url, {
     headers: {
@@ -135,9 +143,7 @@ function addImageElements(data) {
     relatedImagesGrid.classList.remove('loading');
 
   }
-  setTimeout(() => {
-    loadMoreContainer.classList.remove('disabled');
-  },1000 * 8);
+  observer.observe(loadMoreContainer);
 }
 
 
@@ -146,7 +152,7 @@ async function handleWindowLoad(){
   fetchImage(image);
   
   getRelatedImages(title,20);
-  globalImageName = title;
+  globalImageTitle = title;
 }
 window.addEventListener('load',handleWindowLoad);
 
@@ -168,10 +174,11 @@ function handleSelfClick(e){
     },500);
 
     relatedImagesGrid.classList.add('loading');
+    observer.observe(loadMoreContainer);
 
     fetchImage(image);
     getRelatedImages(title,20);
-    globalImageName = title;
+    globalImageTitle = title;
 
     gotoTopBtn.click()
   }
@@ -180,12 +187,31 @@ relatedImagesGrid.addEventListener('click',(e) => {
   handleSelfClick(e);
 });
 
+/* Scroll to top */
+function gotoTopBtnShow(){
+    if(window.pageYOffset > 100) gotoTopBtn.classList.add('show');
+    else gotoTopBtn.classList.remove('show');
+}
+window.addEventListener('scroll',gotoTopBtnShow);
 
-// loadMoreBtn.addEventListener('click',async () => {
-//   await getRelatedImages(globalImageName,15);
-//   loadMoreContainer.classList.add('loading');
-  
-//   setTimeout(() => {
-//     loadMoreContainer.classList.remove('loading');
-//   }, 1000 * 8);
-// });
+
+
+
+// Elements added by scorll
+
+/* load more */
+async function addImageElementsByScroll() {
+    try{
+      await getRelatedImages();
+
+      loadMoreContainer.classList.add('loading');
+      
+      setTimeout(() => {
+        loadMoreContainer.classList.remove('loading');
+      }, 1000 * 8);
+    }catch(e){
+    console.log(e);
+      loadMoreContainer.classList.remove('loading');
+      loadMoreContainer.innerText = 'Reached the End';
+    }
+  }

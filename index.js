@@ -10,6 +10,8 @@ const columnDivs = Array.from(document.querySelectorAll('.column-div'));
 /* load more */
 const loadMoreContainer = document.querySelector('.load-more-container');
 
+const gotoTopBtn = document.querySelector('.goto-top-btn');
+
 
 
 
@@ -63,7 +65,6 @@ const observer = new IntersectionObserver(async entries => {
 
 /* Making api request */
 async function getImages(photoName = globalImageName, limit = 30) {
-
   const url = `https://api.pexels.com/v1/search?query=${photoName}&per_page=${limit}&page=${nextPage++}`;
   const response = await fetch(url, {
     headers: {
@@ -71,8 +72,6 @@ async function getImages(photoName = globalImageName, limit = 30) {
     }
   });
   const data = await response.json();
-  
-  loadMoreContainer.classList.add('disabled');
   
   addImageElements(data);
 }
@@ -88,13 +87,13 @@ function addImageElements(data){
     const imageContainer = document.createElement('div');
     const imageTitle = document.createElement('span');
     const image = document.createElement('img');
-    const popUpWindowContainer = document.createElement('div');
-    const popUpWindowBtn = document.createElement('button');
+    const redirectorContainer = document.createElement('div');
+    const redirectorBtn = document.createElement('button');
      
     // Adding data 
     imageTitle.innerText = data.photos[i].alt;
     image.src = data.photos[i].src.large;
-    popUpWindowBtn.innerText = "Download";
+    redirectorBtn.innerText = "Download";
     
     // Adding animation until the image loads
     imageContainer.classList.add('loading');
@@ -110,15 +109,15 @@ function addImageElements(data){
     imageContainer.classList.add("image-container");
     imageTitle.classList.add("image-title");
     image.classList.add('image');
-    popUpWindowContainer.classList.add("redirector-container");
-    popUpWindowBtn.classList.add("redirector-btn");
+    redirectorContainer.classList.add("redirector-container");
+    redirectorBtn.classList.add("redirector-btn");
      
     // Appending elements to imageContainer
-    popUpWindowContainer.append(popUpWindowBtn);
+    redirectorContainer.append(redirectorBtn);
      
     imageContainer.append(imageTitle);
     imageContainer.append(image);
-    imageContainer.append(popUpWindowContainer);
+    imageContainer.append(redirectorContainer);
      
     // Appending To each column 
     column.append(imageContainer);    
@@ -127,14 +126,7 @@ function addImageElements(data){
   
   imageGrid.classList.remove('loading');
 
-  setTimeout(() => {
-    loadMoreContainer.classList.remove('disabled');
-    
-    observer.observe(loadMoreContainer);
-
-  },1000 * 3);
-  
-  
+  observer.observe(loadMoreContainer);
 }
 
 async function handleFormSubmit(e){
@@ -182,20 +174,46 @@ imageGrid.addEventListener('click',(e) => {handleImageClick(e)});
 
 
 
-async function addImageElementsByScroll() {
-  try{
-    await getImages();
-    
-    loadMoreContainer.classList.add('loading');
-    
-    setTimeout(() => {
-      loadMoreContainer.classList.remove('loading');
-    }, 1000 * 8);
-  }catch(e){
-    loadMoreContainer.classList.remove('loading');
-    loadMoreContainer.innerText = 'Reached the End';
-  }
+
+
+
+
+
+/* Scroll to top */
+
+function gotoTopBtnShow(){
+    if(window.pageYOffset > 100) gotoTopBtn.classList.add('show');
+    else gotoTopBtn.classList.remove('show');
 }
+window.addEventListener('scroll',gotoTopBtnShow);
+
+
+
+
+// Elements added by scorll
+
+/* load more */
+async function addImageElementsByScroll() {
+    try{
+      await getImages();
+
+      loadMoreContainer.classList.add('loading');
+      
+      setTimeout(() => {
+        loadMoreContainer.classList.remove('loading');
+      }, 1000 * 8);
+    }catch(e){
+    console.log(e);
+      loadMoreContainer.classList.remove('loading');
+      loadMoreContainer.innerText = 'Reached the End';
+    }
+  }
+
+
+
+
+
+
 
 
 
