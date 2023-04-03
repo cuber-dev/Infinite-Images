@@ -209,14 +209,3 @@ async function addImageElementsByScroll() {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-

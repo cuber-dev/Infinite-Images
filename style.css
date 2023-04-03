@@ -36,6 +36,12 @@ header #heading{
 header .header-para{
   color: rgb(223, 222, 222);
 }
+
+
+
+
+
+
 header form{
   width: 100%;
   display: flex;
@@ -53,6 +59,8 @@ header .input-container{
   width: 500px;
   background-color: white;
 }
+
+
 header .input-container #photo-search-input{
   flex: 1;
   border: none;
