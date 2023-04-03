@@ -205,7 +205,7 @@ main .image-grid .image-container .image{
 
 
 /* Responsive */
-@media  (max-width :500px) {
+@media  (max-width :555px) {
     .goto-top-btn{
         right: 1rem;
         bottom: 2rem;
