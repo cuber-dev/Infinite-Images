@@ -118,11 +118,11 @@ function addImageElements(data) {
     });
 
     // Adding classes 
-    relatedImageContainer.classList.add("related-image-container");
-    relatedImageTitle.classList.add("related-image-title");
-    relatedImage.classList.add("related-image");
-    selfSearchContainer.classList.add("self-search-container");
-    selfSearchBtn.classList.add("self-search-btn");
+    relatedImageContainer.classList.add("related-image-container","image-container");
+    relatedImageTitle.classList.add("related-image-title","image-title");
+    relatedImage.classList.add("related-image","image");
+    selfSearchContainer.classList.add("self-search-container","redirector-container");
+    selfSearchBtn.classList.add("self-search-btn","redirector-btn");
 
     selfSearchContainer.append(selfSearchBtn);
 
@@ -132,6 +132,9 @@ function addImageElements(data) {
 
     // Appending To each column 
     column.append(relatedImageContainer);
+
+    relatedImagesGrid.classList.remove('loading');
+
   }
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
@@ -164,6 +167,8 @@ function handleSelfClick(e){
         column.innerHTML = '';
       });
     },500);
+
+    relatedImagesGrid.classList.add('loading');
 
     fetchImage(image);
     getRelatedImages(title,20);

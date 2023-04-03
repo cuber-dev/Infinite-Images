@@ -4,7 +4,7 @@ const searchInput = document.querySelector('#photo-search-input');
 const submitBtn = document.querySelector('#submit');
 
 /* Image elements */
-const wholeImgContainer = document.querySelector('.whole-img-container');
+const imageGrid = document.querySelector('.image-grid');
 const columnDivs = Array.from(document.querySelectorAll('.column-div'));
 
 /* load more */
@@ -49,7 +49,16 @@ function changeWord(){
 changeWord();
 /* ============================================= */
 
-
+const observer = new IntersectionObserver(async entries => {
+  const lastChild = entries[0];
+  
+  if(!lastChild.isIntersecting) return;
+  
+  await addImageElementsByScroll();
+  
+}, {
+  rootMargin : '100px'
+});
 
 
 
@@ -117,7 +126,7 @@ function addImageElements(data){
     
   }
   
-  wholeImgContainer.classList.remove('loading');
+  imageGrid.classList.remove('loading');
 
   setTimeout(() => {
     loadMoreContainer.classList.remove('disabled');
@@ -138,7 +147,7 @@ async function handleFormSubmit(e){
   
     observer.observe(loadMoreContainer);
 
-    wholeImgContainer.classList.add('loading');
+    imageGrid.classList.add('loading');
   
     columnDivs.forEach(column => {
       column.innerHTML = '';
@@ -171,7 +180,7 @@ async function handleImageClick(e){
   
   }
 }
-wholeImgContainer.addEventListener('click',(e) => {handleImageClick(e)});
+imageGrid.addEventListener('click',(e) => {handleImageClick(e)});
 
 
 
@@ -190,16 +199,7 @@ async function addImageElementsByScroll() {
   }
 }
 
-const observer = new IntersectionObserver(async entries => {
-  const lastChild = entries[0];
-  
-  if(!lastChild.isIntersecting) return;
-  
-  await addImageElementsByScroll();
-  
-}, {
-  rootMargin : '100px'
-});
+
 
 
 
