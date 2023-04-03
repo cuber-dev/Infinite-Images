@@ -173,6 +173,9 @@ main .related-para{
     padding: .5rem;
   }
   #back-btn{
+    top : 1rem;
+    left : .5rem;
+    padding: .5rem .7rem;
     transform: scale(1);
   }
 }
